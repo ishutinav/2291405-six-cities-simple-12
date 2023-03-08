@@ -1,17 +1,10 @@
 import Logo from '../../components/logo/logo';
 import ItemCard from '../../components/item-card/item-card';
-import Card from '../../types/card';
 import AuthPanel from '../../components/auth-panel/auth-panel';
-import AuthData from '../../types/auth-data';
+import AppSettings from '../../types/app-settings';
 
 
-type PlacesFoundProps = {
-  cards: Card[];
-  placesCount: number;
-  authProps: AuthData;
-}
-
-function MainPage({cards, placesCount, authProps}: PlacesFoundProps): JSX.Element {
+function MainPage({cards, placesCount, authProps}: AppSettings): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">

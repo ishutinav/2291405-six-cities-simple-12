@@ -24,7 +24,7 @@ function App({cards, placesCount, authProps}: AppSettings): JSX.Element {
         />
         <Route
           path="*"
-          element={<NotFoundPage />}
+          element={<NotFoundPage {...authProps}/>}
         />
       </Routes>
     </BrowserRouter>
