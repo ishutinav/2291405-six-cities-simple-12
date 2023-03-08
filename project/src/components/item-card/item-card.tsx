@@ -1,11 +1,7 @@
 import Card from '../../types/card';
+import {PlaceTypes} from '../../const';
+import {Link} from 'react-router-dom';
 
-enum PlaceTypes {
-  apartment = 'Apartment',
-  room = 'Private Room',
-  house = 'House',
-  hotel = 'Hotel',
-}
 
 function getValueByKey(value: string) {
   const indexOfS = Object.keys(PlaceTypes).indexOf(value as unknown as PlaceTypes);
@@ -20,9 +16,9 @@ function ItemCard(props: Card): JSX.Element {
           <span>{props.isPremium && 'Premium'}</span>
         </div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <Link to={`offer/${props.id}`}>
           <img className="place-card__image" src={props.img} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -39,7 +35,7 @@ function ItemCard(props: Card): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{props.title}</a>
+          <Link to={`offer/${props.id}`}>{props.title}</Link>
         </h2>
         <p className="place-card__type">{ getValueByKey(props.type) }</p>
       </div>
