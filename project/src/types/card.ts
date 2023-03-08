@@ -1,5 +1,5 @@
 type Card = {
-  key: number;
+  id: number;
   img: string;
   isPremium: boolean;
   price: number;

@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import Card from './types/card';
+import {AuthorizationStatus} from './const';
 
 const cards: Card[] = [
   {
-    key: 1,
+    id: 1,
     img: 'img/apartment-01.jpg',
     isPremium: true,
     price: 120,
@@ -14,7 +15,7 @@ const cards: Card[] = [
     raiting: 4.8
   },
   {
-    key: 2,
+    id: 2,
     img: 'img/room.jpg',
     isPremium: false,
     price: 80,
@@ -23,7 +24,7 @@ const cards: Card[] = [
     raiting: 4
   },
   {
-    key: 3,
+    id: 3,
     img: 'img/apartment-02.jpg',
     isPremium: false,
     price: 132,
@@ -32,7 +33,7 @@ const cards: Card[] = [
     raiting: 4
   },
   {
-    key: 4,
+    id: 4,
     img: 'img/apartment-03.jpg',
     isPremium: true,
     price: 180,
@@ -41,7 +42,7 @@ const cards: Card[] = [
     raiting: 5
   },
   {
-    key: 5,
+    id: 5,
     img: 'img/room.jpg',
     isPremium: false,
     price: 80,
@@ -51,10 +52,14 @@ const cards: Card[] = [
   }
 ];
 
-const Settings = {
+const settings = {
   cards: cards,
-  cardsCount: cards.length,
-} as const;
+  placesCount: cards.length,
+  authProps: {
+    authStatus: AuthorizationStatus.NoAuth,
+    userName: 'DanningKruger@gmail.com',
+  }
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -62,6 +67,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App cards={Settings.cards} placesCount={Settings.cardsCount}/>
+    <App {...settings}/>
   </React.StrictMode>,
 );
