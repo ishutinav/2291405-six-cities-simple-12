@@ -17,4 +17,6 @@ enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export {AppRoute, PlaceTypes, AuthorizationStatus};
+const MAX_COUNT_CHARACTER_COMMENT = 50;
+
+export {AppRoute, PlaceTypes, AuthorizationStatus, MAX_COUNT_CHARACTER_COMMENT};
