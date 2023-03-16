@@ -1,8 +1,8 @@
-import Card from '../types/card';
+import Offer from './offer';
 import AuthData from '../types/auth-data';
 
 type AppSettings = {
-  cards: Card[];
+  offers: Offer[];
   placesCount: number;
   authProps: AuthData;
 };
