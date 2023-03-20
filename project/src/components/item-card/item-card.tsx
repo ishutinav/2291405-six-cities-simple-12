@@ -1,6 +1,8 @@
 import Offer from '../../types/offer';
 import {Link} from 'react-router-dom';
-import {getTypePlace} from '../../common';
+import {getValueByKey} from '../../common';
+import { PlaceTypes } from '../../const';
+
 
 type ItemCardProps = {
   offer: Offer;
@@ -9,8 +11,6 @@ type ItemCardProps = {
 }
 
 function ItemCard({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
-  const cartType = getTypePlace(offer.type);
-
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOverHandler} onMouseLeave={onMouseLeaveHandler}>
       {offer.isPremium &&
@@ -31,14 +31,14 @@ function ItemCard({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProp
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width:  `${(offer.rating * 20)}%` }}></span>
+            <span style={{ width:  `${Math.round(offer.rating) * 20}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <Link to={`offer/${offer.id}`}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{cartType}</p>
+        <p className="place-card__type">{getValueByKey<PlaceTypes>(offer.type, PlaceTypes)}</p>
       </div>
     </article>
   );

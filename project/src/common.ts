@@ -1,8 +1,6 @@
-import {PlaceTypes} from './const';
 
-function getTypePlace(value: string) {
-  const indexOfS = Object.keys(PlaceTypes).indexOf(value as unknown as PlaceTypes);
-  return Object.values(PlaceTypes)[indexOfS];
+function getValueByKey<T>(offerType: string, enums: object): T{
+  return Object.values(enums)[Object.keys(enums).indexOf(offerType)] as T;
 }
 
-export {getTypePlace};
+export {getValueByKey};

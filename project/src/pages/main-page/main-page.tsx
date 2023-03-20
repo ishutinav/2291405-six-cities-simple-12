@@ -1,11 +1,21 @@
+import { useState } from 'react';
 import CardList from '../../components/card-list/card-list';
+import Map from '../../components/map/map';
 import AppSettings from '../../types/app-settings';
 import NotFoundPage from '../not-found-page/not-found-page';
+import cities from '../../mocks/cities';
+
 
 type MainPageProps = Omit<AppSettings, 'authProps'>;
 
 function MainPage({offers, placesCount}: MainPageProps): JSX.Element {
   const hasOffersInCity = Boolean(offers.length);
+
+  const [activeCardId, setActiveCardId] = useState<null | number>(null);
+
+  const onChangeSelectedCard = (cardId: null | number) => {
+    setActiveCardId(cardId);
+  };
 
   return hasOffersInCity ? (
     <main className="page__main page__main--index">
@@ -14,7 +24,7 @@ function MainPage({offers, placesCount}: MainPageProps): JSX.Element {
         <section className="locations container">
           <ul className="locations__list tabs__list">
             <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
+              <a className="locations__item-link tabs__item">
                 <span>Paris</span>
               </a>
             </li>
@@ -29,7 +39,7 @@ function MainPage({offers, placesCount}: MainPageProps): JSX.Element {
               </a>
             </li>
             <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
+              <a className="locations__item-link tabs__item tabs__item--active" href="#">
                 <span>Amsterdam</span>
               </a>
             </li>
@@ -48,15 +58,18 @@ function MainPage({offers, placesCount}: MainPageProps): JSX.Element {
       </div>
       <div className="cities">
         <div className="cities__places-container container">
-          <CardList offers={offers} placesCount={placesCount} />
+          <CardList offers={offers} placesCount={placesCount} onChangeSelectedCard={onChangeSelectedCard}/>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map city={cities[0]} offers={offers} activeCardId={activeCardId}/>
           </div>
         </div>
       </div>
     </main>
   ) : (
-    <NotFoundPage isNotFoundPage={false}/>
+    <NotFoundPage>
+      <b className="cities__status">No places to stay available</b>
+      <p className="cities__status-description">We could not find any property available at the moment in {}</p>
+    </NotFoundPage>
   );
 }
 
