@@ -1,11 +1,11 @@
 import Review from '../../components/review/review';
-import {AuthorizationStatus} from '../../const';
-import { useParams } from 'react-router-dom';
+import {AuthorizationStatus, PlaceTypes} from '../../const';
+import { Link, useParams } from 'react-router-dom';
 import AppSettings from '../../types/app-settings';
 import Offer from '../../types/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import CardGallery from '../../components/card-gellery/card-gallery';
-import {getTypePlace} from '../../common';
+import {getValueByKey} from '../../common';
 import CardInsideList from '../../components/card-inside-list/card-inside-list';
 
 type PropertyPageProps = Omit<AppSettings, 'placesCount'>;
@@ -13,7 +13,7 @@ type PropertyPageProps = Omit<AppSettings, 'placesCount'>;
 function PropertyPage({offers, authProps}: PropertyPageProps): JSX.Element {
   const { id } = useParams() as {id: string};
   const offer = offers.find((o) => o.id === parseInt(id, 10)) as Offer;
-  const cardType = offer ? getTypePlace(offer.type) : '';
+  const cardType = offer ? getValueByKey<PlaceTypes>(offer.type, PlaceTypes) : '';
 
   return offer ? (
 
@@ -45,10 +45,10 @@ function PropertyPage({offers, authProps}: PropertyPageProps): JSX.Element {
                 {cardType}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {offer.bedrooms} Bedrooms
+                {offer.bedrooms} {offer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
               </li>
               <li className="property__feature property__feature--adults">
-                    Max {offer.maxAdults} adults
+                Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adult'}
               </li>
             </ul>
             <div className="property__price">
@@ -196,7 +196,10 @@ function PropertyPage({offers, authProps}: PropertyPageProps): JSX.Element {
       </div>
     </main>
   ) : (
-    <NotFoundPage isNotFoundPage/>
+    <NotFoundPage>
+      <b className="cities__status">404. Page not found</b>
+      <Link to="/">Back to the main page</Link>
+    </NotFoundPage>
   );
 }
 

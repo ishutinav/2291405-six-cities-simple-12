@@ -3,39 +3,41 @@ import Offer from '../types/offer';
 export const offers: Offer[] = [
   {
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
-    'previewImage': 'https://12.react.pages.academy/static/hotel/3.jpg',
+    'previewImage': 'https://12.react.pages.academy/static/hotel/15.jpg',
     'images': [
-      'https://12.react.pages.academy/static/hotel/14.jpg',
-      'https://12.react.pages.academy/static/hotel/8.jpg',
-      'https://12.react.pages.academy/static/hotel/19.jpg',
+      'https://12.react.pages.academy/static/hotel/7.jpg',
       'https://12.react.pages.academy/static/hotel/16.jpg',
-      'https://12.react.pages.academy/static/hotel/10.jpg',
+      'https://12.react.pages.academy/static/hotel/8.jpg',
       'https://12.react.pages.academy/static/hotel/15.jpg',
-      'https://12.react.pages.academy/static/hotel/3.jpg',
+      'https://12.react.pages.academy/static/hotel/11.jpg',
       'https://12.react.pages.academy/static/hotel/6.jpg',
+      'https://12.react.pages.academy/static/hotel/3.jpg',
+      'https://12.react.pages.academy/static/hotel/20.jpg',
+      'https://12.react.pages.academy/static/hotel/12.jpg',
+      'https://12.react.pages.academy/static/hotel/19.jpg',
       'https://12.react.pages.academy/static/hotel/13.jpg',
-      'https://12.react.pages.academy/static/hotel/2.jpg',
-      'https://12.react.pages.academy/static/hotel/9.jpg',
+      'https://12.react.pages.academy/static/hotel/4.jpg',
       'https://12.react.pages.academy/static/hotel/1.jpg',
-      'https://12.react.pages.academy/static/hotel/18.jpg',
-      'https://12.react.pages.academy/static/hotel/20.jpg'
+      'https://12.react.pages.academy/static/hotel/14.jpg'
     ],
-    'title': 'Amazing and Extremely Central Flat',
+    'title': 'The house among olive ',
     'isPremium': false,
-    'rating': 3.8,
+    'rating': 4.7,
     'type': 'room',
     'bedrooms': 1,
     'maxAdults': 2,
-    'price': 224,
+    'price': 258,
     'goods': [
-      'Laptop friendly workspace'
+      'Washer',
+      'Laptop friendly workspace',
+      'Breakfast'
     ],
     'host': {
       'id': 25,
@@ -45,54 +47,56 @@ export const offers: Offer[] = [
     },
     'description': 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     'location': {
-      'latitude': 48.86261000000000,
-      'longitude': 2.369499,
+      'latitude': 52.35054,
+      'longitude': 4.908976,
       'zoom': 16
     },
-    'id': 1
+    'id': 14
   },
   {
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
     'previewImage': 'https://12.react.pages.academy/static/hotel/10.jpg',
     'images': [
-      'https://12.react.pages.academy/static/hotel/4.jpg',
-      'https://12.react.pages.academy/static/hotel/11.jpg',
-      'https://12.react.pages.academy/static/hotel/15.jpg',
-      'https://12.react.pages.academy/static/hotel/6.jpg',
-      'https://12.react.pages.academy/static/hotel/13.jpg',
-      'https://12.react.pages.academy/static/hotel/18.jpg',
-      'https://12.react.pages.academy/static/hotel/5.jpg',
-      'https://12.react.pages.academy/static/hotel/19.jpg',
-      'https://12.react.pages.academy/static/hotel/8.jpg',
-      'https://12.react.pages.academy/static/hotel/7.jpg',
       'https://12.react.pages.academy/static/hotel/17.jpg',
+      'https://12.react.pages.academy/static/hotel/8.jpg',
+      'https://12.react.pages.academy/static/hotel/3.jpg',
+      'https://12.react.pages.academy/static/hotel/14.jpg',
       'https://12.react.pages.academy/static/hotel/1.jpg',
+      'https://12.react.pages.academy/static/hotel/9.jpg',
+      'https://12.react.pages.academy/static/hotel/13.jpg',
+      'https://12.react.pages.academy/static/hotel/5.jpg',
+      'https://12.react.pages.academy/static/hotel/2.jpg',
+      'https://12.react.pages.academy/static/hotel/20.jpg',
+      'https://12.react.pages.academy/static/hotel/6.jpg',
       'https://12.react.pages.academy/static/hotel/10.jpg',
-      'https://12.react.pages.academy/static/hotel/9.jpg'
+      'https://12.react.pages.academy/static/hotel/19.jpg',
+      'https://12.react.pages.academy/static/hotel/11.jpg'
     ],
-    'title': 'Tile House',
-    'isPremium': true,
+    'title': 'The Joshua Tree House',
+    'isPremium': false,
     'rating': 3.4,
-    'type': 'hotel',
-    'bedrooms': 1,
-    'maxAdults': 2,
-    'price': 177,
+    'type': 'apartment',
+    'bedrooms': 3,
+    'maxAdults': 6,
+    'price': 324,
     'goods': [
-      'Baby seat',
-      'Air conditioning',
-      'Washer',
-      'Fridge',
-      'Dishwasher',
       'Breakfast',
+      'Fridge',
+      'Laptop friendly workspace',
+      'Washing machine',
+      'Washer',
+      'Air conditioning',
       'Towels',
-      'Laptop friendly workspace'
+      'Baby seat',
+      'Dishwasher',
+      'Coffee machine'
     ],
     'host': {
       'id': 25,
@@ -100,54 +104,58 @@ export const offers: Offer[] = [
       'isPro': true,
       'avatarUrl': 'img/avatar-angelina.jpg'
     },
-    'description': 'I rent out a very sunny and bright apartment only 7 minutes walking distance to the metro station. The apartment has a spacious living room with a kitchen, one bedroom and a bathroom with mit bath. A terrace can be used in summer.',
+    'description': 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     'location': {
-      'latitude': 48.83761000000000,
-      'longitude': 2.345499000000000,
+      'latitude': 52.35754,
+      'longitude': 4.917975999999999,
       'zoom': 16
     },
-    'id': 5
+    'id': 23
   },
   {
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
-    'previewImage': 'https://12.react.pages.academy/static/hotel/16.jpg',
+    'previewImage': 'https://12.react.pages.academy/static/hotel/14.jpg',
     'images': [
-      'https://12.react.pages.academy/static/hotel/17.jpg',
-      'https://12.react.pages.academy/static/hotel/14.jpg',
+      'https://12.react.pages.academy/static/hotel/19.jpg',
       'https://12.react.pages.academy/static/hotel/20.jpg',
-      'https://12.react.pages.academy/static/hotel/9.jpg',
-      'https://12.react.pages.academy/static/hotel/7.jpg',
-      'https://12.react.pages.academy/static/hotel/1.jpg',
+      'https://12.react.pages.academy/static/hotel/3.jpg',
       'https://12.react.pages.academy/static/hotel/15.jpg',
       'https://12.react.pages.academy/static/hotel/4.jpg',
-      'https://12.react.pages.academy/static/hotel/16.jpg',
-      'https://12.react.pages.academy/static/hotel/19.jpg',
+      'https://12.react.pages.academy/static/hotel/12.jpg',
+      'https://12.react.pages.academy/static/hotel/9.jpg',
+      'https://12.react.pages.academy/static/hotel/17.jpg',
+      'https://12.react.pages.academy/static/hotel/13.jpg',
       'https://12.react.pages.academy/static/hotel/2.jpg',
       'https://12.react.pages.academy/static/hotel/18.jpg',
-      'https://12.react.pages.academy/static/hotel/11.jpg',
-      'https://12.react.pages.academy/static/hotel/3.jpg'
+      'https://12.react.pages.academy/static/hotel/7.jpg',
+      'https://12.react.pages.academy/static/hotel/14.jpg',
+      'https://12.react.pages.academy/static/hotel/6.jpg'
     ],
-    'title': 'Perfectly located Castro',
+    'title': 'The Pondhouse - A Magical Place',
     'isPremium': false,
-    'rating': 2.3,
-    'type': 'house',
-    'bedrooms': 4,
-    'maxAdults': 7,
-    'price': 496,
+    'rating': 2.4,
+    'type': 'apartment',
+    'bedrooms': 5,
+    'maxAdults': 9,
+    'price': 344,
     'goods': [
-      'Laptop friendly workspace',
-      'Baby seat',
-      'Towels',
-      'Breakfast',
       'Washer',
-      'Air conditioning'
+      'Towels',
+      'Fridge',
+      'Dishwasher',
+      'Coffee machine',
+      'Air conditioning',
+      'Washing machine',
+      'Baby seat',
+      'Laptop friendly workspace',
+      'Breakfast'
     ],
     'host': {
       'id': 25,
@@ -155,52 +163,50 @@ export const offers: Offer[] = [
       'isPro': true,
       'avatarUrl': 'img/avatar-angelina.jpg'
     },
-    'description': 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
+    'description': 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
     'location': {
-      'latitude': 48.86161000000000,
-      'longitude': 2.340499,
+      'latitude': 52.36454000000000,
+      'longitude': 4.901975999999999,
       'zoom': 16
     },
-    'id': 6
+    'id': 27
   },
   {
     'city': {
-      'name': 'Paris',
+      'name': 'Amsterdam',
       'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
+        'latitude': 52.37454,
+        'longitude': 4.897976,
         'zoom': 13
       }
     },
-    'previewImage': 'https://12.react.pages.academy/static/hotel/5.jpg',
+    'previewImage': 'https://12.react.pages.academy/static/hotel/13.jpg',
     'images': [
       'https://12.react.pages.academy/static/hotel/10.jpg',
-      'https://12.react.pages.academy/static/hotel/3.jpg',
-      'https://12.react.pages.academy/static/hotel/13.jpg',
-      'https://12.react.pages.academy/static/hotel/16.jpg',
-      'https://12.react.pages.academy/static/hotel/7.jpg',
-      'https://12.react.pages.academy/static/hotel/8.jpg',
-      'https://12.react.pages.academy/static/hotel/19.jpg',
-      'https://12.react.pages.academy/static/hotel/20.jpg',
-      'https://12.react.pages.academy/static/hotel/18.jpg',
       'https://12.react.pages.academy/static/hotel/5.jpg',
+      'https://12.react.pages.academy/static/hotel/8.jpg',
+      'https://12.react.pages.academy/static/hotel/4.jpg',
+      'https://12.react.pages.academy/static/hotel/9.jpg',
+      'https://12.react.pages.academy/static/hotel/12.jpg',
       'https://12.react.pages.academy/static/hotel/11.jpg',
-      'https://12.react.pages.academy/static/hotel/14.jpg',
-      'https://12.react.pages.academy/static/hotel/1.jpg',
-      'https://12.react.pages.academy/static/hotel/2.jpg'
+      'https://12.react.pages.academy/static/hotel/7.jpg',
+      'https://12.react.pages.academy/static/hotel/2.jpg',
+      'https://12.react.pages.academy/static/hotel/6.jpg',
+      'https://12.react.pages.academy/static/hotel/17.jpg',
+      'https://12.react.pages.academy/static/hotel/13.jpg',
+      'https://12.react.pages.academy/static/hotel/19.jpg',
+      'https://12.react.pages.academy/static/hotel/18.jpg'
     ],
-    'title': 'Beautiful & luxurious apartment at great location',
+    'title': 'Waterfront with extraordinary view',
     'isPremium': false,
-    'rating': 3.6,
-    'type': 'room',
+    'rating': 3.5,
+    'type': 'house',
     'bedrooms': 1,
-    'maxAdults': 3,
-    'price': 184,
+    'maxAdults': 2,
+    'price': 337,
     'goods': [
-      'Breakfast',
-      'Air conditioning',
-      'Washer',
-      'Laptop friendly workspace'
+      'Laptop friendly workspace',
+      'Breakfast'
     ],
     'host': {
       'id': 25,
@@ -208,12 +214,12 @@ export const offers: Offer[] = [
       'isPro': true,
       'avatarUrl': 'img/avatar-angelina.jpg'
     },
-    'description': 'This is a place for dreamers to reset, reflect, and create. Designed with a \'slow\' pace in mind, our hope is that you enjoy every part of your stay; from making local coffee by drip in the morning, choosing the perfect record to put on as the sun sets.',
+    'description': 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     'location': {
-      'latitude': 48.85761,
-      'longitude': 2.358499,
+      'latitude': 52.37554,
+      'longitude': 4.901975999999999,
       'zoom': 16
     },
-    'id': 7
+    'id': 30
   }
 ];

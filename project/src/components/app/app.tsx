@@ -1,4 +1,4 @@
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, BrowserRouter, Routes, Link} from 'react-router-dom';
 import Layout from '../../pages/layout';
 import {AppRoute} from '../../const';
 import MainPage from '../../pages/main-page/main-page';
@@ -11,7 +11,7 @@ function App({offers, placesCount, authProps}: AppSettings): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<Layout {...authProps}/> }>
+        <Route path='/' element={<Layout {...authProps}/> }>
           <Route
             path={AppRoute.Main}
             element={<MainPage offers={offers} placesCount={placesCount}/>}
@@ -22,7 +22,12 @@ function App({offers, placesCount, authProps}: AppSettings): JSX.Element {
           />
           <Route
             path="*"
-            element={<NotFoundPage isNotFoundPage/>}
+            element={
+              <NotFoundPage>
+                <b className="cities__status">404. Page not found</b>
+                <Link to="/">Back to the main page</Link>
+              </NotFoundPage>
+            }
           />
         </Route>
         <Route
