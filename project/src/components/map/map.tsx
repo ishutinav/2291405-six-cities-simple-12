@@ -9,7 +9,8 @@ import 'leaflet/dist/leaflet.css';
 type MapProps = {
   city: City;
   offers: Offer[];
-  activeCardId: null | number;
+  activeCardId?: null | number;
+  classNameMap: string | undefined;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map({city, offers, activeCardId}: MapProps) {
+function Map({city, offers, activeCardId, classNameMap}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -42,7 +43,7 @@ function Map({city, offers, activeCardId}: MapProps) {
   }, [map, offers, activeCardId]);
 
   return (
-    <section className="cities__map map" ref={mapRef}/>
+    <section className={classNameMap} ref={mapRef}/>
   );
 }
 

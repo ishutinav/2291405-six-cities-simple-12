@@ -6,11 +6,11 @@ import { PlaceTypes } from '../../const';
 
 type ItemCardProps = {
   offer: Offer;
-  onMouseOverHandler: () => void;
-  onMouseLeaveHandler: () => void;
+  onMouseOverHandler?: () => void;
+  onMouseLeaveHandler?: () => void;
 }
 
-function ItemCard({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
+function CardItem({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
   return (
     <article className="cities__card place-card" onMouseOver={onMouseOverHandler} onMouseLeave={onMouseLeaveHandler}>
       {offer.isPremium &&
@@ -44,4 +44,4 @@ function ItemCard({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProp
   );
 }
 
-export default ItemCard;
+export default CardItem;

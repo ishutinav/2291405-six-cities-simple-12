@@ -1,7 +1,7 @@
-import ItemCard from '../item-card/item-card';
 import Offer from '../../types/offer';
 import { useEffect, useState } from 'react';
 import CardSortingMenu from '../card-sorting-menu/card-sorting-menu';
+import makeHardCardItem from '../simple-card-item/hard-card-item';
 
 
 type CardListProps = {
@@ -13,14 +13,14 @@ type CardListProps = {
 function CardList({offers, placesCount, onChangeSelectedCard}: CardListProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
 
-  const cards = offers.map((offer) => (
-    <ItemCard
-      key={offer.id}
-      offer={offer}
-      onMouseOverHandler={() => setActiveCardId(offer.id)}
-      onMouseLeaveHandler={() => setActiveCardId(null)}
-    />)
-  );
+  const cards = offers.map((offer) => {
+    const CardI = makeHardCardItem({
+      offer: offer,
+      onMouseOverHandler: () => setActiveCardId(offer.id),
+      onMouseLeaveHandler: () => setActiveCardId(null)
+    });
+    return <CardI key={offer.id} offer={offer} onMouseOverHandler={() => setActiveCardId(offer.id)} onMouseLeaveHandler={() => setActiveCardId(null)}/>;
+  });
 
   useEffect(() => {
     onChangeSelectedCard(activeCardId);

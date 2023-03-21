@@ -60,7 +60,7 @@ function MainPage({offers, placesCount}: MainPageProps): JSX.Element {
         <div className="cities__places-container container">
           <CardList offers={offers} placesCount={placesCount} onChangeSelectedCard={onChangeSelectedCard}/>
           <div className="cities__right-section">
-            <Map city={cities[0]} offers={offers} activeCardId={activeCardId}/>
+            <Map city={cities[0]} offers={offers} activeCardId={activeCardId} classNameMap={'cities__map map'}/>
           </div>
         </div>
       </div>

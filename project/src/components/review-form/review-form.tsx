@@ -1,7 +1,7 @@
 import {ChangeEvent, useState, useEffect, Fragment } from 'react';
 import {MIN_CHARACTER_COMMENT, MAX_CHARACTER_COMMENT, RATING_STARS_COUNT} from '../../const';
 
-function Review(): JSX.Element {
+function ReviewForm(): JSX.Element {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState('');
   const [isSubmitDisabled, setSubmitDisabled] = useState(false);
@@ -50,4 +50,4 @@ function Review(): JSX.Element {
   );
 }
 
-export default Review;
+export default ReviewForm;

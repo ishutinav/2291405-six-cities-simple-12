@@ -27,12 +27,10 @@ enum SortTypes {
 const MIN_CHARACTER_COMMENT = 50;
 const MAX_CHARACTER_COMMENT = 300;
 const RATING_STARS_COUNT = 5;
+const MAX_COUNT_COMMENTS = 10;
 
-const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
-
-const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+const URL_MARKER_DEFAULT = '../img/pin.svg';
+const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
 export {
   AppRoute,
@@ -43,5 +41,6 @@ export {
   MAX_CHARACTER_COMMENT,
   RATING_STARS_COUNT,
   URL_MARKER_DEFAULT,
-  URL_MARKER_CURRENT
+  URL_MARKER_CURRENT,
+  MAX_COUNT_COMMENTS
 };
