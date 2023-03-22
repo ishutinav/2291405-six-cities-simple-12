@@ -6,19 +6,22 @@ import { PlaceTypes } from '../../const';
 
 type ItemCardProps = {
   offer: Offer;
-  onMouseOverHandler?: () => void;
-  onMouseLeaveHandler?: () => void;
+  componentClassName: string;
+  onMouseOverHandler: () => void;
+  onMouseLeaveHandler: () => void;
 }
 
-function CardItem({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
+function CardItem({offer, componentClassName, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
+  const offerUrl = `/offer/${offer.id.toString()}`;
+
   return (
-    <article className="cities__card place-card" onMouseOver={onMouseOverHandler} onMouseLeave={onMouseLeaveHandler}>
+    <article className={`${componentClassName}card place-card`} onMouseOver={onMouseOverHandler} onMouseLeave={onMouseLeaveHandler}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>{offer.isPremium && 'Premium'}</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${offer.id}`}>
+      <div className={`${componentClassName}image-wrapper place-card__image-wrapper`}>
+        <Link to={offerUrl}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
@@ -36,7 +39,7 @@ function CardItem({offer, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProp
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${offer.id}`}>{offer.title}</Link>
+          <Link to={offerUrl}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{getValueByKey<PlaceTypes>(offer.type, PlaceTypes)}</p>
       </div>

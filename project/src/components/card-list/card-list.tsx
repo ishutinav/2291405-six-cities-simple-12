@@ -1,37 +1,37 @@
 import Offer from '../../types/offer';
 import { useEffect, useState } from 'react';
-import CardSortingMenu from '../card-sorting-menu/card-sorting-menu';
-import makeHardCardItem from '../simple-card-item/hard-card-item';
+import CardItem from '../card-item/card-item';
 
 
 type CardListProps = {
   offers: Offer[];
-  placesCount: number;
+  sectionClassName: string;
+  listClassName: string;
+  children: string | JSX.Element | JSX.Element[];
   onChangeSelectedCard: (cardId: null | number) => void;
 }
 
-function CardList({offers, placesCount, onChangeSelectedCard}: CardListProps): JSX.Element {
+function CardList({offers, sectionClassName, listClassName, children, onChangeSelectedCard}: CardListProps): JSX.Element {
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
 
-  const cards = offers.map((offer) => {
-    const CardI = makeHardCardItem({
-      offer: offer,
-      onMouseOverHandler: () => setActiveCardId(offer.id),
-      onMouseLeaveHandler: () => setActiveCardId(null)
-    });
-    return <CardI key={offer.id} offer={offer} onMouseOverHandler={() => setActiveCardId(offer.id)} onMouseLeaveHandler={() => setActiveCardId(null)}/>;
-  });
+  const cards = offers.map((offer) => (
+    <CardItem
+      key={offer.id}
+      offer={offer}
+      componentClassName= {sectionClassName.includes('near') ? 'near-places__' : 'cities__'}
+      onMouseOverHandler={() => setActiveCardId(offer.id)}
+      onMouseLeaveHandler={() => setActiveCardId(null)}
+    />
+  ));
 
   useEffect(() => {
     onChangeSelectedCard(activeCardId);
   }, [activeCardId]);
 
   return (
-    <section className="cities__places places">
-      <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{placesCount} places to stay in {}</b>
-      <CardSortingMenu/>
-      <div className="cities__places-list places__list tabs__content">
+    <section className={`${sectionClassName} places`}>
+      {children}
+      <div className={`${listClassName} places__list tabs__content`}>
         {cards}
       </div>
     </section>
