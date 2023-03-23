@@ -9,7 +9,7 @@ const settings = {
   offers: offers,
   placesCount: offers.length,
   authProps: {
-    authStatus: AuthorizationStatus.Auth,
+    authStatus: AuthorizationStatus.NoAuth,
     userName: 'DanningKruger@gmail.com',
   }
 };

@@ -6,10 +6,12 @@ import LoginPage from '../../pages/login-page/login-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import AppSettings from '../../types/app-settings';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 function App({offers, placesCount, authProps}: AppSettings): JSX.Element {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path='/' element={<Layout {...authProps}/> }>
           <Route
