@@ -32,11 +32,21 @@ const MAX_COUNT_COMMENTS = 10;
 const URL_MARKER_DEFAULT = '../img/pin.svg';
 const URL_MARKER_CURRENT = '../img/pin-active.svg';
 
+const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
+
 export {
   AppRoute,
   PlaceTypes,
   AuthorizationStatus,
   SortTypes,
+  CITIES,
   MIN_CHARACTER_COMMENT,
   MAX_CHARACTER_COMMENT,
   RATING_STARS_COUNT,
