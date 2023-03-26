@@ -1,10 +1,18 @@
 import {useEffect, useRef, useState} from 'react';
 import {SortTypes} from '../../const';
 
-function CardSortingMenu(): JSX.Element {
+type CardSortingMenuProps = {
+  onChangeSortType: (sortType: SortTypes) => void;
+}
+
+function CardSortingMenu({onChangeSortType}: CardSortingMenuProps): JSX.Element {
   const menuArrowRef = useRef(null);
   const [isOpened, setOpened] = useState(false);
   const [selectedOption, setSelectedOption] = useState(SortTypes.DEFAULT);
+
+  useEffect(() => {
+    onChangeSortType(selectedOption);
+  }, [selectedOption]);
 
   const handleOptionClick = (value: SortTypes) => {
     setSelectedOption(value);
