@@ -16,7 +16,7 @@ function App({offers, authProps}: AppSettings): JSX.Element {
         <Route path='/' element={<Layout {...authProps}/> }>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offers={offers}/>}
+            element={<MainPage/>}
           />
           <Route
             path={AppRoute.Room}
