@@ -1,6 +1,6 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
-import { Icon, Marker } from 'leaflet';
+import { FeatureGroup, Icon, Marker } from 'leaflet';
 import City from '../../types/city';
 import Offer from '../../types/offer';
 import useMap from '../../hooks/useMap';
@@ -28,17 +28,22 @@ const currentCustomIcon = new Icon({
 function Map({city, offers, activeCardId, classNameMap}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const [markersGroup] = useState<FeatureGroup>(new FeatureGroup());
 
   useEffect(() => {
     if (map) {
+      markersGroup.clearLayers();
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-
-        marker.setIcon((offer.id === activeCardId) ? currentCustomIcon : defaultCustomIcon).addTo(map);
+        marker.setIcon((offer.id === activeCardId) ? currentCustomIcon : defaultCustomIcon);
+        markersGroup.addLayer(marker);
       });
+
+      markersGroup.addTo(map);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
   }, [map, offers, activeCardId]);
 

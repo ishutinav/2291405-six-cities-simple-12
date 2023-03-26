@@ -8,7 +8,7 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import AppSettings from '../../types/app-settings';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
-function App({offers, placesCount, authProps}: AppSettings): JSX.Element {
+function App({offers, authProps}: AppSettings): JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -16,7 +16,7 @@ function App({offers, placesCount, authProps}: AppSettings): JSX.Element {
         <Route path='/' element={<Layout {...authProps}/> }>
           <Route
             path={AppRoute.Main}
-            element={<MainPage offers={offers} placesCount={placesCount}/>}
+            element={<MainPage offers={offers}/>}
           />
           <Route
             path={AppRoute.Room}

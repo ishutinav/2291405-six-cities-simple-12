@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import App from './components/app/app';
 import {AuthorizationStatus} from './const';
 import {offers} from './mocks/offers';
+import { store } from './store';
 
 
 const settings = {
@@ -20,6 +22,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App {...settings}/>
+    <Provider store={store}>
+      <App {...settings}/>
+    </Provider>
   </React.StrictMode>,
 );
