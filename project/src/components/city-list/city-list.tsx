@@ -2,7 +2,7 @@ import CityItem from '../city-item/city-item';
 
 type CityListProps = {
   cities: string[];
-  activeCity: string;
+  activeCity: string | null;
   onCurrentCityChange: (city: string) => void;
 }
 

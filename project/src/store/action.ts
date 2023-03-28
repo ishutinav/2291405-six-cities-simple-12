@@ -3,4 +3,4 @@ import Offer from '../types/offer';
 
 export const setActiveCity = createAction<string>('list/setActiveCity');
 
-export const setOffersByCity = createAction<Offer[]>('city/setOffersByCity');
+export const loadOffers = createAction<Offer[]>('data/loadOffers');

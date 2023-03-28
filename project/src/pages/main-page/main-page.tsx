@@ -5,7 +5,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import CardSortingMenu from '../../components/card-sorting-menu/card-sorting-menu';
 import CityList from '../../components/city-list/city-list';
 import { CITIES, SortTypes } from '../../const';
-import { setActiveCity, setOffersByCity } from '../../store/action';
+import { setActiveCity } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Offer from '../../types/offer';
 import { getSortedOffers } from '../../common';
@@ -33,21 +33,15 @@ function MainPage(): JSX.Element {
   };
 
   useEffect(() => {
-    dispatch(setOffersByCity(currentOffers));
-  }, [dispatch, offers]);
-
-  useEffect(() => {
     let cityOffers = getOffersByCity(activeCity, offers);
     cityOffers = getSortedOffers(cityOffers, currentSortType);
-
     setCurrentOffers(cityOffers);
-
   }, [activeCity, dispatch, offers, currentSortType]);
 
   return hasOffersInCity ? (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
-      <CityList cities={CITIES} activeCity={activeCity} onCurrentCityChange={(e) => dispatch(setActiveCity(e))}/>
+      <CityList cities={CITIES} activeCity={activeCity} onCurrentCityChange={(city) => dispatch(setActiveCity(city))}/>
       <div className="cities">
         <div className="cities__places-container container">
           <CardList
