@@ -92,7 +92,7 @@ function PropertyPage(authProps: AuthData): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={offer.city} offers={neighboringOffers} classNameMap='property__map map'/>
+        <Map city={offer.city} offers={neighboringOffers} activeCardId={ parseInt(id, 10) } classNameMap='property__map map'/>
       </section>
 
       <div className="container">
