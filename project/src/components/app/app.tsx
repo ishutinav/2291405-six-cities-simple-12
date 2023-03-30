@@ -5,10 +5,20 @@ import MainPage from '../../pages/main-page/main-page';
 import LoginPage from '../../pages/login-page/login-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import AppSettings from '../../types/app-settings';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
+import AuthData from '../../types/auth-data';
+import LoadSpinner from '../loader-spinner/load-spinner';
+import { useAppSelector } from '../../hooks';
 
-function App({offers, authProps}: AppSettings): JSX.Element {
+function App(authProps: AuthData): JSX.Element {
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (isOffersLoading) {
+    return (
+      <LoadSpinner />
+    );
+  }
+
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -20,7 +30,7 @@ function App({offers, authProps}: AppSettings): JSX.Element {
           />
           <Route
             path={AppRoute.Room}
-            element={<PropertyPage offers={offers} authProps={authProps} />}
+            element={<PropertyPage {...authProps} />}
           />
           <Route
             path="*"

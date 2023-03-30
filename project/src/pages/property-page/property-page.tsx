@@ -1,7 +1,6 @@
 import ReviewForm from '../../components/review-form/review-form';
 import {AuthorizationStatus, PlaceTypes} from '../../const';
 import { Link, useParams } from 'react-router-dom';
-import AppSettings from '../../types/app-settings';
 import Offer from '../../types/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import CardGallery from '../../components/card-gellery/card-gallery';
@@ -12,11 +11,14 @@ import Map from '../../components/map/map';
 import reviews from '../../mocks/reviews';
 import CardList from '../../components/card-list/card-list';
 import { neighborhoods } from '../../mocks/neighboring';
+import AuthData from '../../types/auth-data';
+import { useAppSelector } from '../../hooks';
 
-type PropertyPageProps = Omit<AppSettings, 'placesCount'>;
 
-function PropertyPage({offers, authProps}: PropertyPageProps): JSX.Element {
+function PropertyPage(authProps: AuthData): JSX.Element {
   const { id } = useParams() as {id: string};
+  const offers = useAppSelector((state) => state.offers);
+
   const offer = offers.find((o) => o.id === parseInt(id, 10)) as Offer;
   const cardType = offer ? getValueByKey<PlaceTypes>(offer.type, PlaceTypes) : '';
 
@@ -90,7 +92,7 @@ function PropertyPage({offers, authProps}: PropertyPageProps): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={offer.city} offers={neighboringOffers} classNameMap='property__map map'/>
+        <Map city={offer.city} offers={neighboringOffers} activeCardId={ parseInt(id, 10) } classNameMap='property__map map'/>
       </section>
 
       <div className="container">

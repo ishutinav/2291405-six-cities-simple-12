@@ -41,11 +41,25 @@ const CITIES = [
   'Dusseldorf'
 ];
 
+const BACKEND_URL = 'https://12.react.pages.academy/six-cities-simple';
+const REQUEST_TIME = 5000;
+const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
+enum APIRoute {
+  Offers = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export {
   AppRoute,
+  APIRoute,
   PlaceTypes,
   AuthorizationStatus,
   SortTypes,
+  BACKEND_URL,
+  REQUEST_TIME,
+  AUTH_TOKEN_KEY_NAME,
   CITIES,
   MIN_CHARACTER_COMMENT,
   MAX_CHARACTER_COMMENT,
