@@ -6,11 +6,10 @@ import LoginPage from '../../pages/login-page/login-page';
 import PropertyPage from '../../pages/property-page/property-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import AuthData from '../../types/auth-data';
 import LoadSpinner from '../loader-spinner/load-spinner';
 import { useAppSelector } from '../../hooks';
 
-function App(authProps: AuthData): JSX.Element {
+function App(): JSX.Element {
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
   if (isOffersLoading) {
@@ -23,14 +22,14 @@ function App(authProps: AuthData): JSX.Element {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-        <Route path='/' element={<Layout {...authProps}/> }>
+        <Route path='/' element={<Layout /> }>
           <Route
             path={AppRoute.Main}
             element={<MainPage/>}
           />
           <Route
             path={AppRoute.Room}
-            element={<PropertyPage {...authProps} />}
+            element={<PropertyPage />}
           />
           <Route
             path="*"
@@ -44,7 +43,7 @@ function App(authProps: AuthData): JSX.Element {
         </Route>
         <Route
           path={AppRoute.Login}
-          element={<LoginPage {...authProps}/>}
+          element={<LoginPage />}
         />
       </Routes>
     </BrowserRouter>
