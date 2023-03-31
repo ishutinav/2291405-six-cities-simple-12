@@ -11,12 +11,12 @@ import Map from '../../components/map/map';
 import reviews from '../../mocks/reviews';
 import CardList from '../../components/card-list/card-list';
 import { neighborhoods } from '../../mocks/neighboring';
-import AuthData from '../../types/auth-data';
 import { useAppSelector } from '../../hooks';
 
 
-function PropertyPage(authProps: AuthData): JSX.Element {
+function PropertyPage(): JSX.Element {
   const { id } = useParams() as {id: string};
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
 
   const offer = offers.find((o) => o.id === parseInt(id, 10)) as Offer;
@@ -88,7 +88,7 @@ function PropertyPage(authProps: AuthData): JSX.Element {
 
             <section className="property__reviews reviews">
               <ReviewsList reviews={reviews}/>
-              { authProps.authStatus === AuthorizationStatus.Auth && <ReviewForm />}
+              { authStatus === AuthorizationStatus.Auth && <ReviewForm />}
             </section>
           </div>
         </div>

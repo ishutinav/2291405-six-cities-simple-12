@@ -1,8 +1,6 @@
-import {AuthorizationStatus} from '../const';
-
 type AuthData = {
-  authStatus: AuthorizationStatus;
-  userName: string;
+  login: string;
+  password: string;
 }
 
 export default AuthData;
