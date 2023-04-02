@@ -10,6 +10,7 @@ type MapProps = {
   city: City;
   offers: Offer[];
   activeCardId?: null | number;
+  currentOffer?: Offer | null;
   classNameMap: string | undefined;
 }
 
@@ -25,14 +26,13 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-function Map({city, offers, activeCardId, classNameMap}: MapProps) {
+function Map({city, offers, activeCardId, currentOffer, classNameMap}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const [markersGroup] = useState<FeatureGroup>(new FeatureGroup());
 
   useEffect(() => {
     if (map) {
-      markersGroup.clearLayers();
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -42,10 +42,21 @@ function Map({city, offers, activeCardId, classNameMap}: MapProps) {
         markersGroup.addLayer(marker);
       });
 
+      if (currentOffer) {
+        const marker = new Marker({
+          lat: currentOffer.location.latitude,
+          lng: currentOffer.location.longitude,
+        });
+        marker.setIcon(currentCustomIcon);
+        markersGroup.addLayer(marker);
+      }
+
       markersGroup.addTo(map);
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
-  }, [map, offers, activeCardId]);
+
+    return () => {markersGroup.clearLayers(); };
+  }, [map, offers, activeCardId, currentOffer]);
 
   return (
     <section className={classNameMap} ref={mapRef}/>

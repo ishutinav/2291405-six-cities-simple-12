@@ -2,7 +2,6 @@ import Offer from '../../types/offer';
 import { useEffect, useState } from 'react';
 import CardItem from '../card-item/card-item';
 
-
 type CardListProps = {
   offers: Offer[];
   sectionClassName: string;

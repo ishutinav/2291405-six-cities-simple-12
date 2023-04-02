@@ -1,15 +1,20 @@
+import { useEffect, useState } from 'react';
 import { sortCommentDateDown } from '../../common';
 import { MAX_COUNT_COMMENTS } from '../../const';
-import Comment from '../../types/comment';
+import { useAppSelector } from '../../hooks';
+import Review from '../../types/review';
 import ReviewsItem from '../reviews-item/reviews-item';
 
-type ReviewsListProps = {
-  reviews: Comment[];
-}
 
-function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+function ReviewsList(): JSX.Element {
+  const reviews = useAppSelector((state) => state.reviews);
+  const [currentReviews, setCurrentReviews] = useState<Review[]>([]);
 
-  const comments = reviews.sort(sortCommentDateDown).slice(0, MAX_COUNT_COMMENTS).map((comment) => (
+  useEffect(() => {
+    setCurrentReviews(reviews);
+  }, [reviews]);
+
+  const comments = sortCommentDateDown(currentReviews).slice(0, MAX_COUNT_COMMENTS).map((comment) => (
     <ReviewsItem
       key={comment.id}
       comment={comment.comment}
