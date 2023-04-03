@@ -17,18 +17,23 @@ import Offer from '../../types/offer';
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
-  const hotelId = parseInt(id, 10);
+  const hotelId = Number(id);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const [currentOffer, setCurrentOffer] = useState<Offer | null>(null);
   const [neighboringOffers, setNeighboringOffers] = useState<Offer[]>([]);
 
   useEffect(() => {
-    dispatch(fetchOfferByIdAction({ id : hotelId }));
-    dispatch(fetchNearOffersAction({ id : hotelId }));
-    dispatch(fetchReviewsAction({ id : hotelId }));
+    if (isNaN(hotelId)) {
+      setCurrentOffer(null);
+    }else {
+      dispatch(fetchOfferByIdAction({ id : hotelId }));
+      dispatch(fetchNearOffersAction({ id : hotelId }));
+      dispatch(fetchReviewsAction({ id : hotelId }));
+    }
   }, [id]);
 
   const offer = useAppSelector((state) => state.offer);
+
   useEffect(() => {
     setCurrentOffer(offer);
   }, [offer, dispatch]);
