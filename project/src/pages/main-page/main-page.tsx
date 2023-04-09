@@ -16,7 +16,6 @@ const getCityForMap = (offer: Offer) => offer.city;
 
 
 function MainPage(): JSX.Element {
-
   const dispatch = useAppDispatch();
 
   const activeCity = useAppSelector((state) => state.city);
@@ -25,8 +24,6 @@ function MainPage(): JSX.Element {
   const [currentOffers, setCurrentOffers] = useState<Offer[]>([]);
   const [activeCardId, setActiveCardId] = useState<null | number>(null);
   const [currentSortType, setCurrentSortType] = useState<SortTypes>(SortTypes.DEFAULT);
-
-  const hasOffersInCity = Boolean(currentOffers.length);
 
   const onChangeSelectedCard = (cardId: null | number) => {
     setActiveCardId(cardId);
@@ -38,7 +35,16 @@ function MainPage(): JSX.Element {
     setCurrentOffers(cityOffers);
   }, [activeCity, dispatch, offers, currentSortType]);
 
-  return hasOffersInCity ? (
+  if (Boolean(currentOffers.length) === false) {
+    return (
+      <NotFoundPage>
+        <b className="cities__status">No places to stay available</b>
+        <p className="cities__status-description">We could not find any property available at the moment in {}</p>
+      </NotFoundPage>
+    );
+  }
+
+  return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <CityList cities={CITIES} activeCity={activeCity} onCurrentCityChange={(city) => dispatch(setActiveCity(city))}/>
@@ -60,11 +66,6 @@ function MainPage(): JSX.Element {
         </div>
       </div>
     </main>
-  ) : (
-    <NotFoundPage>
-      <b className="cities__status">No places to stay available</b>
-      <p className="cities__status-description">We could not find any property available at the moment in {}</p>
-    </NotFoundPage>
   );
 }
 

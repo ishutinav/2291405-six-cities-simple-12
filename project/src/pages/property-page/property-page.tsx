@@ -10,44 +10,41 @@ import Map from '../../components/map/map';
 import CardList from '../../components/card-list/card-list';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNearOffersAction, fetchOfferByIdAction, fetchReviewsAction } from '../../store/api-actions';
-import { useEffect, useState } from 'react';
-import Offer from '../../types/offer';
-
+import { useEffect } from 'react';
+import LoadSpinner from '../../components/loader-spinner/load-spinner';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
   const hotelId = Number(id);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const [currentOffer, setCurrentOffer] = useState<Offer | null>(null);
-  const [neighboringOffers, setNeighboringOffers] = useState<Offer[]>([]);
 
   useEffect(() => {
-    if (isNaN(hotelId)) {
-      setCurrentOffer(null);
-    }else {
-      dispatch(fetchOfferByIdAction({ id : hotelId }));
-      dispatch(fetchNearOffersAction({ id : hotelId }));
-      dispatch(fetchReviewsAction({ id : hotelId }));
-    }
+    dispatch(fetchOfferByIdAction({ id : hotelId }));
+    dispatch(fetchNearOffersAction({ id : hotelId }));
+    dispatch(fetchReviewsAction({ id : hotelId }));
   }, [id]);
 
-  const offer = useAppSelector((state) => state.offer);
-
-  useEffect(() => {
-    setCurrentOffer(offer);
-  }, [offer, dispatch]);
-
+  const currentOffer = useAppSelector((state) => state.offer);
   const neighbours = useAppSelector((state) => state.neighbours);
-  useEffect(() => {
-    setNeighboringOffers(neighbours);
-  }, [neighbours, dispatch]);
-
-
   const cardType = currentOffer ? getValueByKey<PlaceTypes>(currentOffer.type, PlaceTypes) : '';
 
-  return currentOffer ? (
+  if (isNaN(hotelId)) {
+    return (
+      <NotFoundPage>
+        <b className="cities__status">404. Page not found</b>
+        <Link to="/">Back to the main page</Link>
+      </NotFoundPage>
+    );
+  }
 
+  if (!currentOffer) {
+    return (
+      <LoadSpinner />
+    );
+  }
+
+  return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
@@ -114,12 +111,12 @@ function PropertyPage(): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={currentOffer.city} offers={neighboringOffers} currentOffer={currentOffer} activeCardId={ null } classNameMap='property__map map'/>
+        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} activeCardId={ null } classNameMap='property__map map'/>
       </section>
 
       <div className="container">
         <CardList
-          offers={neighboringOffers}
+          offers={neighbours}
           sectionClassName = 'near-places'
           listClassName = 'near-places__list'
           onChangeSelectedCard = {(e)=> e}
@@ -128,11 +125,6 @@ function PropertyPage(): JSX.Element {
         </CardList>
       </div>
     </main>
-  ) : (
-    <NotFoundPage>
-      <b className="cities__status">404. Page not found</b>
-      <Link to="/">Back to the main page</Link>
-    </NotFoundPage>
   );
 }
 

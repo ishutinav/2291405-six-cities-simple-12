@@ -10,7 +10,7 @@ type MapProps = {
   city: City;
   offers: Offer[];
   activeCardId?: null | number;
-  currentOffer?: Offer | null;
+  currentOffer?: Offer;
   classNameMap: string | undefined;
 }
 
