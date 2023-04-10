@@ -5,10 +5,12 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import CardSortingMenu from '../../components/card-sorting-menu/card-sorting-menu';
 import CityList from '../../components/city-list/city-list';
 import { CITIES, SortTypes } from '../../const';
-import { setActiveCity } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Offer from '../../types/offer';
 import { getSortedOffers } from '../../common';
+import { setActiveCity } from '../../store/app-process/app-process';
+import { getOffers } from '../../store/app-data/selectors';
+import { getCurrentCity } from '../../store/app-process/selectors';
 
 const getOffersByCity = (city: string, offers: Offer[]) => offers.filter((offer) => offer.city.name === city);
 
@@ -18,8 +20,8 @@ const getCityForMap = (offer: Offer) => offer.city;
 function MainPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const activeCity = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
+  const activeCity = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
 
   const [currentOffers, setCurrentOffers] = useState<Offer[]>([]);
   const [activeCardId, setActiveCardId] = useState<null | number>(null);

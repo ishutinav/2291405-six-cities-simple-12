@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ReviewData } from '../../types/review-data';
 import { sendReviewAction } from '../../store/api-actions';
 import Offer from '../../types/offer';
+import { getOffer } from '../../store/app-data/selectors';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ function ReviewForm(): JSX.Element {
     clearForm();
   };
 
-  const offer = useAppSelector((state) => state.offer) as Offer;
+  const offer = useAppSelector(getOffer) as Offer;
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     onSubmit({

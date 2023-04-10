@@ -4,10 +4,11 @@ import { MAX_COUNT_COMMENTS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Review from '../../types/review';
 import ReviewsItem from '../reviews-item/reviews-item';
+import { getReviews } from '../../store/review-data/selectors';
 
 
 function ReviewsList(): JSX.Element {
-  const reviews = useAppSelector((state) => state.reviews);
+  const reviews = useAppSelector(getReviews);
   const [currentReviews, setCurrentReviews] = useState<Review[]>([]);
 
   useEffect(() => {

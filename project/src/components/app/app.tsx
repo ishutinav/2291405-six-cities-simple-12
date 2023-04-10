@@ -8,9 +8,10 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import ScrollToTop from '../scroll-to-top/scroll-to-top';
 import LoadSpinner from '../loader-spinner/load-spinner';
 import { useAppSelector } from '../../hooks';
+import { getOffersDataLoadingStatus } from '../../store/app-data/selectors';
 
 function App(): JSX.Element {
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector(getOffersDataLoadingStatus);
 
   if (isOffersLoading) {
     return (

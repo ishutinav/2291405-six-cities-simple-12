@@ -52,12 +52,20 @@ enum APIRoute {
   Comments = '/comments',
 }
 
+enum NameSpace {
+  Data = 'DATA',
+  Review = 'REVIEW',
+  User = 'USER',
+  Process = 'PROCESS',
+}
+
 export {
   AppRoute,
   APIRoute,
   PlaceTypes,
   AuthorizationStatus,
   SortTypes,
+  NameSpace,
   BACKEND_URL,
   REQUEST_TIME,
   AUTH_TOKEN_KEY_NAME,

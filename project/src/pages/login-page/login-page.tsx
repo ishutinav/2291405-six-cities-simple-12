@@ -6,10 +6,11 @@ import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-actions';
 import AuthData from '../../types/auth-data';
 import {toast} from 'react-toastify';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 
 function LoginPage(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
