@@ -1,70 +1,89 @@
 import ReviewForm from '../../components/review-form/review-form';
 import {AuthorizationStatus, PlaceTypes} from '../../const';
 import { Link, useParams } from 'react-router-dom';
-import Offer from '../../types/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import CardGallery from '../../components/card-gellery/card-gallery';
 import {getValueByKey} from '../../common';
 import CardInsideList from '../../components/card-inside-list/card-inside-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
-import reviews from '../../mocks/reviews';
 import CardList from '../../components/card-list/card-list';
-import { neighborhoods } from '../../mocks/neighboring';
-import { useAppSelector } from '../../hooks';
-
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchNearOffersAction, fetchOfferByIdAction, fetchReviewsAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import LoadSpinner from '../../components/loader-spinner/load-spinner';
 
 function PropertyPage(): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
+  const hotelId = Number(id);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const offers = useAppSelector((state) => state.offers);
 
-  const offer = offers.find((o) => o.id === parseInt(id, 10)) as Offer;
-  const cardType = offer ? getValueByKey<PlaceTypes>(offer.type, PlaceTypes) : '';
+  useEffect(() => {
+    dispatch(fetchOfferByIdAction({ id : hotelId }));
+    dispatch(fetchNearOffersAction({ id : hotelId }));
+    dispatch(fetchReviewsAction({ id : hotelId }));
+  }, [id]);
 
-  const neighboringOffers = neighborhoods;
+  const currentOffer = useAppSelector((state) => state.offer);
+  const neighbours = useAppSelector((state) => state.neighbours);
+  const cardType = currentOffer ? getValueByKey<PlaceTypes>(currentOffer.type, PlaceTypes) : '';
 
-  return offer ? (
+  if (isNaN(hotelId)) {
+    return (
+      <NotFoundPage>
+        <b className="cities__status">404. Page not found</b>
+        <Link to="/">Back to the main page</Link>
+      </NotFoundPage>
+    );
+  }
 
+  if (!currentOffer) {
+    return (
+      <LoadSpinner />
+    );
+  }
+
+  return (
     <main className="page__main page__main--property">
       <section className="property">
         <div className="property__gallery-container container">
-          <CardGallery images={offer.images}/>
+          <CardGallery images={currentOffer.images}/>
         </div>
         <div className="property__container container">
           <div className="property__wrapper">
-            {offer.isPremium &&
+            {currentOffer.isPremium &&
                   <div className="property__mark">
-                    <span>{offer.isPremium && 'Premium'}</span>
+                    <span>{currentOffer.isPremium && 'Premium'}</span>
                   </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                {offer.title}
+                {currentOffer.title}
               </h1>
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{ width: `${(offer.rating * 20)}%` }}></span>
+                <span style={{ width: `${(currentOffer.rating * 20)}%` }}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{ offer.rating }</span>
+              <span className="property__rating-value rating__value">{ currentOffer.rating }</span>
             </div>
             <ul className="property__features">
               <li className="property__feature property__feature--entire">
                 {cardType}
               </li>
               <li className="property__feature property__feature--bedrooms">
-                {offer.bedrooms} {offer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
+                {currentOffer.bedrooms} {currentOffer?.bedrooms > 1 ? 'Bedrooms' : 'Bedroom'}
               </li>
               <li className="property__feature property__feature--adults">
-                Max {offer.maxAdults} {offer.maxAdults > 1 ? 'adults' : 'adult'}
+                Max {currentOffer.maxAdults} {currentOffer.maxAdults > 1 ? 'adults' : 'adult'}
               </li>
             </ul>
             <div className="property__price">
-              <b className="property__price-value">&euro;{ offer.price }</b>
+              <b className="property__price-value">&euro;{ currentOffer.price }</b>
               <span className="property__price-text">&nbsp;night</span>
             </div>
-            <CardInsideList goods={offer.goods}/>
+            <CardInsideList goods={currentOffer.goods}/>
 
             <div className="property__host">
               <h2 className="property__host-title">Meet the host</h2>
@@ -73,31 +92,31 @@ function PropertyPage(): JSX.Element {
                   <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
                 </div>
                 <span className="property__user-name">
-                  { offer.host.name }
+                  { currentOffer.host.name }
                 </span>
                 <span className="property__user-status">
-                  { offer.host.isPro && 'Pro' }
+                  { currentOffer.host.isPro && 'Pro' }
                 </span>
               </div>
               <div className="property__description">
                 <p className="property__text">
-                  {offer.description}
+                  {currentOffer.description}
                 </p>
               </div>
             </div>
 
             <section className="property__reviews reviews">
-              <ReviewsList reviews={reviews}/>
+              <ReviewsList />
               { authStatus === AuthorizationStatus.Auth && <ReviewForm />}
             </section>
           </div>
         </div>
-        <Map city={offer.city} offers={neighboringOffers} activeCardId={ parseInt(id, 10) } classNameMap='property__map map'/>
+        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} activeCardId={ null } classNameMap='property__map map'/>
       </section>
 
       <div className="container">
         <CardList
-          offers={offers.slice(0,3)}
+          offers={neighbours}
           sectionClassName = 'near-places'
           listClassName = 'near-places__list'
           onChangeSelectedCard = {(e)=> e}
@@ -106,11 +125,6 @@ function PropertyPage(): JSX.Element {
         </CardList>
       </div>
     </main>
-  ) : (
-    <NotFoundPage>
-      <b className="cities__status">404. Page not found</b>
-      <Link to="/">Back to the main page</Link>
-    </NotFoundPage>
   );
 }
 
