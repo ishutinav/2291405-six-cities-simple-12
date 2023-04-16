@@ -5,28 +5,32 @@ import City from '../../types/city';
 import Offer from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
+import { useSelector } from 'react-redux';
+import { getActiveOfferId } from '../../store/app-process/selectors';
 
 type MapProps = {
   city: City;
   offers: Offer[];
-  activeCardId?: null | number;
+  /*activeCardId?: null | number;*/
   currentOffer?: Offer;
   classNameMap: string | undefined;
 }
 
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
+  iconSize: [27, 39],
   iconAnchor: [20, 40],
 });
 
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
+  iconSize: [27, 39],
   iconAnchor: [20, 40],
 });
 
-function Map({city, offers, activeCardId, currentOffer, classNameMap}: MapProps) {
+function Map({city, offers, currentOffer, classNameMap}: MapProps) {
+
+  const activeCardId = useSelector(getActiveOfferId);
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const [markersGroup] = useState<FeatureGroup>(new FeatureGroup());

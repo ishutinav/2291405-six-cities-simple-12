@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import {SortTypes} from '../../const';
 
 type CardSortingMenuProps = {
-  onChangeSortType: (sortType: SortTypes) => void;
+  onChangeSortType?: (sortType: SortTypes) => void;
 }
 
 function CardSortingMenu({onChangeSortType}: CardSortingMenuProps): JSX.Element {
@@ -11,7 +11,9 @@ function CardSortingMenu({onChangeSortType}: CardSortingMenuProps): JSX.Element 
   const [selectedOption, setSelectedOption] = useState(SortTypes.DEFAULT);
 
   useEffect(() => {
-    onChangeSortType(selectedOption);
+    if (onChangeSortType) {
+      onChangeSortType(selectedOption);
+    }
   }, [selectedOption]);
 
   const handleOptionClick = (value: SortTypes) => {

@@ -12,21 +12,25 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchNearOffersAction, fetchOfferByIdAction, fetchReviewsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import LoadSpinner from '../../components/loader-spinner/load-spinner';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getNeighbours, getOffer } from '../../store/app-data/selectors';
+import { setActiveOfferId } from '../../store/app-process/app-process';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
   const hotelId = Number(id);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     dispatch(fetchOfferByIdAction({ id : hotelId }));
     dispatch(fetchNearOffersAction({ id : hotelId }));
     dispatch(fetchReviewsAction({ id : hotelId }));
-  }, [id]);
+    dispatch(setActiveOfferId(null));
+  }, [hotelId, dispatch]);
 
-  const currentOffer = useAppSelector((state) => state.offer);
-  const neighbours = useAppSelector((state) => state.neighbours);
+  const currentOffer = useAppSelector(getOffer);
+  const neighbours = useAppSelector(getNeighbours);
   const cardType = currentOffer ? getValueByKey<PlaceTypes>(currentOffer.type, PlaceTypes) : '';
 
   if (isNaN(hotelId)) {
@@ -111,7 +115,7 @@ function PropertyPage(): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} activeCardId={ null } classNameMap='property__map map'/>
+        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} classNameMap='property__map map'/>
       </section>
 
       <div className="container">
