@@ -1,12 +1,10 @@
-import {ChangeEvent, useState, useEffect, FormEvent, useCallback } from 'react';
+import {ChangeEvent, useState, useEffect, Fragment, FormEvent } from 'react';
 import {MIN_CHARACTER_COMMENT, MAX_CHARACTER_COMMENT, RATING_STARS_COUNT} from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ReviewData } from '../../types/review-data';
 import { sendReviewAction } from '../../store/api-actions';
 import Offer from '../../types/offer';
 import { getOffer } from '../../store/app-data/selectors';
-import ReviewTextArea from '../review-textarea/review-textarea';
-import StarRatingItem from '../star-rating-item/star-rating-item';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -38,13 +36,9 @@ function ReviewForm(): JSX.Element {
     setSubmitDisabled(isDisable);
   }, [rating, review]);
 
-  const onReviewChangeHandle = useCallback(({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+  const onReviewChangeHandle = ({ target }: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(target.value);
-  }, []);
-
-  const onRatingChangeHandle = useCallback((val: number) => {
-    setRating(val);
-  }, []);
+  };
 
   const clearForm = () => {
     if (rating) {
@@ -66,16 +60,34 @@ function ReviewForm(): JSX.Element {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratingValues.reverse().map((value: number) => (
-          <StarRatingItem
-            key={value}
-            isFormEnabled={isFormEnabled}
-            rating={value}
-            setOfferRating={onRatingChangeHandle}
-          />
-        )
+          <Fragment key={value}>
+            <input
+              className="form__rating-input visually-hidden"
+              name="rating"
+              value={value}
+              id={`${value}-stars`}
+              type="radio"
+              onChange={() => setRating(value)}
+              disabled={isFormEnabled}
+            />
+            <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
+              <svg className="form__star-image" width="37" height="33">
+                <use xlinkHref="#icon-star"></use>
+              </svg>
+            </label>
+          </Fragment>)
         )}
       </div>
-      <ReviewTextArea isFormEnabled={isFormEnabled} changeReview={onReviewChangeHandle}/>
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={onReviewChangeHandle}
+        value={review}
+        disabled={isFormEnabled}
+      >
+      </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
         To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_CHARACTER_COMMENT} characters</b>.
