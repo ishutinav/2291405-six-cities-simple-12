@@ -1,6 +1,6 @@
-import Offer from '../../types/offer';
-import { useEffect, useState } from 'react';
 import CardItem from '../card-item/card-item';
+import Offer from '../../types/offer';
+import { memo } from 'react';
 
 type CardListProps = {
   offers: Offer[];
@@ -11,21 +11,15 @@ type CardListProps = {
 }
 
 function CardList({offers, sectionClassName, listClassName, children, onChangeSelectedCard}: CardListProps): JSX.Element {
-  const [activeCardId, setActiveCardId] = useState<null | number>(null);
 
   const cards = offers.map((offer) => (
     <CardItem
       key={offer.id}
       offer={offer}
-      componentClassName= {sectionClassName.includes('near') ? 'near-places__' : 'cities__'}
-      onMouseOverHandler={() => setActiveCardId(offer.id)}
-      onMouseLeaveHandler={() => setActiveCardId(null)}
+      componentClassName = {sectionClassName.includes('near') ? 'near-places__' : 'cities__'}
+      setActiveCard = {(offerId) => onChangeSelectedCard(offerId)}
     />
   ));
-
-  useEffect(() => {
-    onChangeSelectedCard(activeCardId);
-  }, [activeCardId]);
 
   return (
     <section className={`${sectionClassName} places`}>
@@ -37,4 +31,4 @@ function CardList({offers, sectionClassName, listClassName, children, onChangeSe
   );
 }
 
-export default CardList;
+export default memo(CardList);

@@ -1,0 +1,67 @@
+import { useCallback, useEffect, useState } from 'react';
+import Map from '../../components/map/map';
+import CardList from '../card-list/card-list';
+import { getOffers } from '../../store/app-data/selectors';
+import Offer from '../../types/offer';
+import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getCurrentCity } from '../../store/app-process/selectors';
+import { getSortedOffers } from '../../common';
+import { SortTypes } from '../../const';
+import { setActiveOfferId } from '../../store/app-process/app-process';
+import CardSortingMenu from '../card-sorting-menu/card-sorting-menu';
+
+
+const getOffersByCity = (city: string, offers: Offer[]) => offers.filter((offer) => offer.city.name === city);
+const getCityForMap = (offer: Offer) => offer.city;
+
+function OffersContainer(): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const offers = useAppSelector(getOffers);
+  const activeCity = useAppSelector(getCurrentCity);
+
+  const [currentOffers, setCurrentOffers] = useState<Offer[]>([]);
+  const [currentSortType, setCurrentSortType] = useState<SortTypes>(SortTypes.DEFAULT);
+
+  const handleChangeSelectedCard = useCallback((cardId: null | number) => {
+    dispatch(setActiveOfferId(cardId));
+  }, [dispatch]);
+
+  useEffect(() => {
+    let cityOffers = getOffersByCity(activeCity, offers);
+    cityOffers = getSortedOffers(cityOffers, currentSortType);
+    setCurrentOffers(cityOffers);
+  }, [activeCity, dispatch, offers, currentSortType]);
+
+  if (Boolean(currentOffers.length) === false) {
+    return (
+      <NotFoundPage>
+        <b className="cities__status">No places to stay available</b>
+        <p className="cities__status-description">We could not find any property available at the moment in {}</p>
+      </NotFoundPage>
+    );
+  }
+
+  return (
+    <div className="cities">
+      <div className="cities__places-container container">
+        <CardList
+          offers={currentOffers}
+          sectionClassName='cities__places'
+          listClassName='cities__places-list'
+          onChangeSelectedCard={handleChangeSelectedCard}
+        >
+          <h2 className="visually-hidden">Places</h2>
+          <b className="places__found">{currentOffers.length} places to stay in {activeCity}</b>
+          <CardSortingMenu onChangeSortType={(sortType) => setCurrentSortType(sortType) }/>
+        </CardList>
+        <div className="cities__right-section">
+          <Map city={getCityForMap(currentOffers[0])} offers={currentOffers} classNameMap={'cities__map map'}/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default OffersContainer;

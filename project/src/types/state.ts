@@ -24,6 +24,7 @@ export type ReviewData = {
 
 export type AppProcess = {
   city: string;
+  activeOfferId: number | null;
 }
 
 export type State = ReturnType<typeof store.getState>;

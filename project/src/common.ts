@@ -12,7 +12,7 @@ function sortCommentDateDown(reviews: Review[]) {
   return items;
 }
 
-function getSortedOffers(offers: Offer[], sortType: SortTypes) {
+function getSortedOffers(offers: Offer[], sortType: SortTypes) : Offer[] {
   const items = [...offers];
   switch (sortType) {
     case SortTypes.PRICE_UP:

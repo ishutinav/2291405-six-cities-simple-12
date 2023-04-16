@@ -7,15 +7,14 @@ import { PlaceTypes } from '../../const';
 type ItemCardProps = {
   offer: Offer;
   componentClassName: string;
-  onMouseOverHandler: () => void;
-  onMouseLeaveHandler: () => void;
+  setActiveCard: (offerId: number | null) => void;
 }
 
-function CardItem({offer, componentClassName, onMouseOverHandler, onMouseLeaveHandler}: ItemCardProps): JSX.Element {
+function CardItem({offer, componentClassName, setActiveCard}: ItemCardProps): JSX.Element {
   const offerUrl = `/offer/${offer.id.toString()}`;
 
   return (
-    <article className={`${componentClassName}card place-card`} onMouseOver={onMouseOverHandler} onMouseLeave={onMouseLeaveHandler}>
+    <article className={`${componentClassName}card place-card`} onMouseOver={() => setActiveCard(offer.id)} onMouseLeave={() => setActiveCard(null)}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>{offer.isPremium && 'Premium'}</span>

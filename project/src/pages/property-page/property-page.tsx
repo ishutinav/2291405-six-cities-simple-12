@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import LoadSpinner from '../../components/loader-spinner/load-spinner';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getNeighbours, getOffer } from '../../store/app-data/selectors';
+import { setActiveOfferId } from '../../store/app-process/app-process';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ function PropertyPage(): JSX.Element {
     dispatch(fetchOfferByIdAction({ id : hotelId }));
     dispatch(fetchNearOffersAction({ id : hotelId }));
     dispatch(fetchReviewsAction({ id : hotelId }));
+    dispatch(setActiveOfferId(null));
   }, [hotelId, dispatch]);
 
   const currentOffer = useAppSelector(getOffer);
@@ -113,7 +115,7 @@ function PropertyPage(): JSX.Element {
             </section>
           </div>
         </div>
-        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} activeCardId={ null } classNameMap='property__map map'/>
+        <Map city={currentOffer.city} offers={neighbours} currentOffer={currentOffer} classNameMap='property__map map'/>
       </section>
 
       <div className="container">
