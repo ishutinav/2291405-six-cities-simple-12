@@ -14,12 +14,10 @@ export type AppData = {
   offer: Offer | null;
   neighbours: Offer[];
   isOffersLoading: boolean;
-  hasError: boolean;
 }
 
 export type ReviewData = {
   reviews: Review[];
-  hasError: boolean;
 }
 
 export type AppProcess = {
