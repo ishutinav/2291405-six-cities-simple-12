@@ -1,11 +1,10 @@
+import { getDisplayFormattedDateComment } from '../../common';
 import Review from '../../types/review';
 
 function ReviewsItem(review: Review): JSX.Element {
-  const reviewDate = new Date(review.date);
 
-  const monthName = reviewDate.toLocaleString('en-EN', { month: 'long' });
   const reviewValueDate = review.date.substring(0, 10);
-  const reviewViewDate = `${monthName} ${reviewDate.getFullYear()}`;
+  const reviewViewDate = getDisplayFormattedDateComment(review.date);
 
   return (
     <li className="reviews__item">

@@ -1,8 +1,8 @@
 import { CITIES } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCurrentCity } from '../../store/app-process/selectors';
+import { setActiveCity } from '../../store/app-data/app-data';
+import { getCurrentCity } from '../../store/app-data/selectors';
 import CityItem from '../city-item/city-item';
-import { setActiveCity } from '../../store/app-process/app-process';
 
 function CityList(): JSX.Element {
   const dispatch = useAppDispatch();

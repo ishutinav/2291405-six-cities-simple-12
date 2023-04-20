@@ -6,7 +6,7 @@ import Offer from '../../types/offer';
 import useMap from '../../hooks/useMap';
 import 'leaflet/dist/leaflet.css';
 import { useSelector } from 'react-redux';
-import { getActiveOfferId } from '../../store/app-process/selectors';
+import { getActiveOfferId } from '../../store/app-data/selectors';
 
 type MapProps = {
   city: City;

@@ -4,7 +4,8 @@ import { ReviewData } from '../../types/state';
 import { fetchReviewsAction, sendReviewAction } from '../api-actions';
 
 const initialState: ReviewData = {
-  reviews: []
+  reviews: [],
+  hasError: false
 };
 
 export const reviewData = createSlice({
@@ -16,8 +17,14 @@ export const reviewData = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
+      .addCase(sendReviewAction.pending, (state) => {
+        state.hasError = false;
+      })
       .addCase(sendReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
+      })
+      .addCase(sendReviewAction.rejected, (state) => {
+        state.hasError = true;
       });
   }
 });

@@ -1,7 +1,7 @@
 enum AppRoute {
   Main = '/',
   Login = '/login',
-  Room = '/offer/:id',
+  Room = '/offer',
 }
 
 enum PlaceTypes {
@@ -56,7 +56,6 @@ enum NameSpace {
   Data = 'DATA',
   Review = 'REVIEW',
   User = 'USER',
-  Process = 'PROCESS',
 }
 
 export {

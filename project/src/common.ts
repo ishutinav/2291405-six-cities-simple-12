@@ -2,6 +2,13 @@ import { SortTypes } from './const';
 import Review from './types/review';
 import Offer from './types/offer';
 
+function getDisplayFormattedDateComment(date: string): string {
+  const reviewDate = new Date(date);
+  const monthName = reviewDate.toLocaleString('en-EN', { month: 'long' });
+  return `${monthName} ${reviewDate.getFullYear()}`;
+}
+
+
 function getValueByKey<T>(offerType: string, enums: object): T{
   return Object.values(enums)[Object.keys(enums).indexOf(offerType)] as T;
 }
@@ -29,4 +36,4 @@ function getSortedOffers(offers: Offer[], sortType: SortTypes) : Offer[] {
   return items;
 }
 
-export {getValueByKey, sortCommentDateDown, getSortedOffers};
+export {getValueByKey, sortCommentDateDown, getSortedOffers, getDisplayFormattedDateComment};
