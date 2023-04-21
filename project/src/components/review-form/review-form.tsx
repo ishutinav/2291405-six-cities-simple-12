@@ -76,6 +76,7 @@ function ReviewForm(): JSX.Element {
               type="radio"
               onChange={() => setRating(value)}
               disabled={isFormEnabled}
+              alt="rating-star"
             />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
@@ -93,6 +94,7 @@ function ReviewForm(): JSX.Element {
         onChange={onReviewChangeHandle}
         value={review}
         disabled={isFormEnabled}
+        data-testid="review"
       >
       </textarea>
       <div className="reviews__button-wrapper">

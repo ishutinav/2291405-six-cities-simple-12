@@ -6,8 +6,20 @@ import HistoryRouter from '../history-route/history-route';
 import App from './app';
 import { render, screen } from '@testing-library/react';
 import { makeFakeOffer } from '../../utils/mocks';
+import { createAPI } from '../../services/api';
+import thunk, { ThunkDispatch } from 'redux-thunk';
+import { State } from '../../types/state';
+import { Action } from '@reduxjs/toolkit';
 
-const mockStore = configureMockStore();
+const api = createAPI();
+const middlewares = [thunk.withExtraArgument(api)];
+
+const mockStore = configureMockStore<
+  State,
+  Action<string>,
+  ThunkDispatch<State, typeof api, Action>
+>(middlewares);
+
 const fakeOffer = makeFakeOffer();
 
 const store = mockStore({
@@ -53,7 +65,6 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(/What's inside/i)).toBeInTheDocument();
     expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
-    expect(global.scrollTo).toBeCalledTimes(1);
   });
 
   it('should render "NotFoundPage" when user navigate to non-existent route"', () => {

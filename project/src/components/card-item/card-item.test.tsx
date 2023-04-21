@@ -3,8 +3,8 @@ import CardItem from './card-item';
 import { makeFakeOffer } from '../../utils/mocks';
 import HistoryRouter from '../history-route/history-route';
 import { createMemoryHistory } from 'history';
-import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 
 
 const history = createMemoryHistory();
