@@ -14,7 +14,7 @@ function CardItem({offer, componentClassName, setActiveCard}: ItemCardProps): JS
   const offerUrl = `/offer/${offer.id.toString()}`;
 
   return (
-    <article role="listitem" className={`${componentClassName}card place-card`} onMouseOver={() => setActiveCard(offer.id)} onMouseLeave={() => setActiveCard(null)}>
+    <article role="listitem" aria-label="place-card" className={`${componentClassName}card place-card`} onMouseOver={() => setActiveCard(offer.id)} onMouseLeave={() => setActiveCard(null)}>
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>{offer.isPremium && 'Premium'}</span>

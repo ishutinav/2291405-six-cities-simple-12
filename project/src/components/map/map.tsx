@@ -11,7 +11,6 @@ import { getActiveOfferId } from '../../store/app-data/selectors';
 type MapProps = {
   city: City;
   offers: Offer[];
-  /*activeCardId?: null | number;*/
   currentOffer?: Offer;
   classNameMap: string | undefined;
 }
@@ -63,7 +62,7 @@ function Map({city, offers, currentOffer, classNameMap}: MapProps) {
   }, [map, offers, activeCardId, currentOffer]);
 
   return (
-    <section className={classNameMap} ref={mapRef}/>
+    <section className={classNameMap} ref={mapRef} data-testid="map"/>
   );
 }
 
