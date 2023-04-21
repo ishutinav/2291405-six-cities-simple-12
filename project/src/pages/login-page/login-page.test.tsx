@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
 import { Action } from '@reduxjs/toolkit';
 import thunk, { ThunkDispatch } from 'redux-thunk';
-import userEvent from '@testing-library/user-event';
 import { createAPI } from '../../services/api';
 import { State } from '../../types/state';
 import LoginPage from './login-page';
@@ -24,7 +23,7 @@ const mockStore = configureMockStore<
 
 describe('Component: LoginPage', () => {
 
-  it('should render correctly', async () => {
+  it('should render correctly', () => {
     const store = mockStore({
       USER: {
         authorizationStatus: AuthorizationStatus.NoAuth,
@@ -49,8 +48,8 @@ describe('Component: LoginPage', () => {
     expect(emailElement).toBeInTheDocument();
     expect(passwordElement).toBeInTheDocument();
 
-    await userEvent.type(emailElement, 'Oliver.conner@gmail.com');
-    await userEvent.type(passwordElement, '123456Aa');
+    fireEvent.change(emailElement, {target: {value: 'Oliver.conner@gmail.com'}});
+    fireEvent.change(passwordElement, {target: {value: '123456Aa'}});
 
     expect(screen.getByDisplayValue(/Oliver.conner@gmail.com/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/123456Aa/i)).toBeInTheDocument();
