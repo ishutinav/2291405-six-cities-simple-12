@@ -1,14 +1,13 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import MockAdapter from 'axios-mock-adapter';
 import { createAPI } from '../../services/api';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import ReviewForm from './review-form';
 import HistoryRouter from '../history-route/history-route';
 import { createMemoryHistory } from 'history';
-import { makeFakeOffer, makeFakeReview, makeFakeReviews } from '../../utils/mocks';
+import { makeFakeOffer, makeFakeReviews } from '../../utils/mocks';
 import { APIRoute } from '../../const';
-import userEvent from '@testing-library/user-event';
 import { State } from '../../types/state';
 import { Action } from '@reduxjs/toolkit';
 import thunk, { ThunkDispatch } from 'redux-thunk';
@@ -49,9 +48,7 @@ describe('Component: ReviewForm', () => {
     expect(screen.getByText(/To submit review please make sure to set/i)).toBeInTheDocument();
   });
 
-  it('comment can be sent to server', async () => {
-    const fakeReview = makeFakeReview();
-
+  it('comment can be sent to server', () => {
     mockAPI
       .onPost(`${APIRoute.Comments}/1`)
       .reply(200, []);
@@ -79,8 +76,8 @@ describe('Component: ReviewForm', () => {
     const sumbit = screen.getByRole('button');
     expect(sumbit).toBeDisabled();
 
-    await userEvent.click(star);
-    await userEvent.type(textarea, fakeReview.comment);
+    fireEvent.click(star);
+    fireEvent.change(textarea, {target: { value: fakeReviews[0].comment }});
     expect(textarea).toBeEnabled();
 
   });

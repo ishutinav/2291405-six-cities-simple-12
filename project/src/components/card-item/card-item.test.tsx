@@ -1,10 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CardItem from './card-item';
 import { makeFakeOffer } from '../../utils/mocks';
 import HistoryRouter from '../history-route/history-route';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
 
 
 const history = createMemoryHistory();
@@ -27,7 +26,7 @@ describe('Component: CardItem', () => {
     expect(screen.getByText(fakeOffer.title)).toBeInTheDocument();
   });
 
-  it('should redirect to card after click', async () => {
+  it('should redirect to card after click', () => {
     const handleSetActiveCard = jest.fn();
 
     render(
@@ -40,11 +39,11 @@ describe('Component: CardItem', () => {
       </Router>
     );
 
-    await userEvent.click(screen.getAllByRole('link')[0]);
+    fireEvent.click(screen.getAllByRole('link')[0]);
     expect(history.location.pathname).toBe(`/offer/${fakeOffer.id}`);
   });
 
-  it('should set active offer after mouse enter', async () => {
+  it('should set active offer after mouse enter', () => {
     const handleSetActiveCard = jest.fn();
 
     render(
@@ -57,7 +56,7 @@ describe('Component: CardItem', () => {
       </HistoryRouter>
     );
 
-    await userEvent.hover(screen.getByRole('listitem'));
+    fireEvent.mouseOver(screen.getByRole('listitem'));
     expect(handleSetActiveCard).toBeCalledTimes(1);
   });
 });
