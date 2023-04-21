@@ -5,6 +5,8 @@ import { ReviewData } from '../../types/review-data';
 import { sendReviewAction } from '../../store/api-actions';
 import Offer from '../../types/offer';
 import { getOffer } from '../../store/app-data/selectors';
+import { getErrorStatus } from '../../store/review-data/selectors';
+import {toast} from 'react-toastify';
 
 function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -13,12 +15,17 @@ function ReviewForm(): JSX.Element {
   const [review, setReview] = useState('');
   const [isSubmitDisabled, setSubmitDisabled] = useState(false);
   const [isFormEnabled, setFormEnabled] = useState(false);
+  const hasError = useAppSelector(getErrorStatus);
 
   const onSubmit = (reviewData: ReviewData) => {
     setFormEnabled(true);
     dispatch(sendReviewAction(reviewData));
+    if (hasError) {
+      toast.warn('Send error. Comment not sent!');
+    }else{
+      clearForm();
+    }
     setFormEnabled(false);
-    clearForm();
   };
 
   const offer = useAppSelector(getOffer) as Offer;
@@ -69,6 +76,7 @@ function ReviewForm(): JSX.Element {
               type="radio"
               onChange={() => setRating(value)}
               disabled={isFormEnabled}
+              alt="rating-star"
             />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
               <svg className="form__star-image" width="37" height="33">
@@ -86,6 +94,7 @@ function ReviewForm(): JSX.Element {
         onChange={onReviewChangeHandle}
         value={review}
         disabled={isFormEnabled}
+        data-testid="review"
       >
       </textarea>
       <div className="reviews__button-wrapper">

@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import Map from '../../components/map/map';
 import CardList from '../card-list/card-list';
-import { getOffers } from '../../store/app-data/selectors';
+import { getCurrentCity, getOffers } from '../../store/app-data/selectors';
 import Offer from '../../types/offer';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getCurrentCity } from '../../store/app-process/selectors';
 import { getSortedOffers } from '../../common';
 import { SortTypes } from '../../const';
-import { setActiveOfferId } from '../../store/app-process/app-process';
 import CardSortingMenu from '../card-sorting-menu/card-sorting-menu';
+import { setActiveOfferId } from '../../store/app-data/app-data';
 
 
 const getOffersByCity = (city: string, offers: Offer[]) => offers.filter((offer) => offer.city.name === city);
@@ -38,7 +37,7 @@ function OffersContainer(): JSX.Element {
     return (
       <NotFoundPage>
         <b className="cities__status">No places to stay available</b>
-        <p className="cities__status-description">We could not find any property available at the moment in {}</p>
+        <p className="cities__status-description">We could not find any property available at the moment in {activeCity}</p>
       </NotFoundPage>
     );
   }

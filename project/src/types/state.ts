@@ -10,19 +10,18 @@ export type UserProcess = {
 };
 
 export type AppData = {
+  city: string;
   offers: Offer[];
   offer: Offer | null;
   neighbours: Offer[];
   isOffersLoading: boolean;
+  activeOfferId: number | null;
+  hasError: boolean;
 }
 
 export type ReviewData = {
   reviews: Review[];
-}
-
-export type AppProcess = {
-  city: string;
-  activeOfferId: number | null;
+  hasError: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;

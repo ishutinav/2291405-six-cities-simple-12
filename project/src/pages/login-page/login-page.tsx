@@ -1,12 +1,13 @@
 import Logo from '../../components/logo/logo';
 import {AppRoute, AuthorizationStatus, CITIES} from '../../const';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FormEvent, useRef } from 'react';
 import { loginAction } from '../../store/api-actions';
 import AuthData from '../../types/auth-data';
 import {toast} from 'react-toastify';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { setActiveCity } from '../../store/app-data/app-data';
 
 
 function LoginPage(): JSX.Element {
@@ -16,6 +17,7 @@ function LoginPage(): JSX.Element {
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const isPasswordValidate = (password: string): boolean => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/g;
@@ -39,6 +41,14 @@ function LoginPage(): JSX.Element {
         toast.warn('Passwords must contain: minimum of 1 letter and minimum of 1 numeric character [0-9]');
       }
     }
+  };
+
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
+  const handleRedirectToCity = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+
+    dispatch(setActiveCity(randomCity));
+    navigate(AppRoute.Main, { replace: true });
   };
 
   return (
@@ -74,8 +84,8 @@ function LoginPage(): JSX.Element {
                 </section>
                 <section className="locations locations--login locations--current">
                   <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>{CITIES[Math.floor(Math.random() * CITIES.length)]}</span>
+                    <a className="locations__item-link" href="{'/'}" onClick={(e) => handleRedirectToCity(e)}>
+                      <span>{randomCity}</span>
                     </a>
                   </div>
                 </section>

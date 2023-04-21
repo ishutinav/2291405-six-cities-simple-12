@@ -13,14 +13,15 @@ import { fetchNearOffersAction, fetchOfferByIdAction, fetchReviewsAction } from 
 import { useEffect } from 'react';
 import LoadSpinner from '../../components/loader-spinner/load-spinner';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
-import { getNeighbours, getOffer } from '../../store/app-data/selectors';
-import { setActiveOfferId } from '../../store/app-process/app-process';
+import { getHasError, getNeighbours, getOffer } from '../../store/app-data/selectors';
+import { setActiveOfferId } from '../../store/app-data/app-data';
 
 function PropertyPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams() as {id: string};
   const hotelId = Number(id);
   const authStatus = useAppSelector(getAuthorizationStatus);
+  const hasError = useAppSelector(getHasError);
 
   useEffect(() => {
     dispatch(fetchOfferByIdAction({ id : hotelId }));
@@ -33,7 +34,7 @@ function PropertyPage(): JSX.Element {
   const neighbours = useAppSelector(getNeighbours);
   const cardType = currentOffer ? getValueByKey<PlaceTypes>(currentOffer.type, PlaceTypes) : '';
 
-  if (isNaN(hotelId)) {
+  if (!currentOffer && (isNaN(hotelId) || hasError)) {
     return (
       <NotFoundPage>
         <b className="cities__status">404. Page not found</b>

@@ -2,7 +2,7 @@ import './load-spinner.css';
 
 function LoadSpinner(): JSX.Element {
   return (
-    <div className="spinner-wrapper">
+    <div className="spinner-wrapper" data-testid="loader">
       <div className="lds-ring">
         <div>
         </div>

@@ -20,7 +20,7 @@ function CardSortingMenu({onChangeSortType}: CardSortingMenuProps): JSX.Element 
     setSelectedOption(value);
   };
 
-  const palcesOptions = Object.values(SortTypes).map((value, index) => (
+  const placesOptions = Object.values(SortTypes).map((value, index) => (
     <li
       key={`places__option_${index.toString()}`}
       className="places__option"
@@ -49,14 +49,14 @@ function CardSortingMenu({onChangeSortType}: CardSortingMenuProps): JSX.Element 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={() => setOpened(!isOpened)} ref={menuArrowRef}>
+      <span className="places__sorting-type" tabIndex={0} onClick={() => setOpened(!isOpened)} ref={menuArrowRef} data-testid="sort-button">
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
         &nbsp;{selectedOption}
       </span>
-      <ul className={`places__options places__options--custom places__options${isOpened ? '--opened' : ''}`}>
-        {palcesOptions}
+      <ul className={`places__options places__options--custom places__options${isOpened ? '--opened' : ''}`} data-testid="list-options">
+        {placesOptions}
       </ul>
     </form>
   );
