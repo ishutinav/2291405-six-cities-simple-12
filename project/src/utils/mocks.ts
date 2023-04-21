@@ -4,6 +4,7 @@ import { datatype, helpers, image, internet } from 'faker';
 import Review from '../types/review';
 import UserData from '../types/user-data';
 import { ReviewData } from '../types/review-data';
+import City from '../types/city';
 
 export const makeFakeOffer = (): Offer => ({
   bedrooms: datatype.number(6),
@@ -69,4 +70,13 @@ export const makeFakeUserData = (): UserData => ({
   isPro: datatype.boolean(),
   name: internet.userName(),
   token: datatype.string(),
+});
+
+export const makeFakeCity = (): City => ({
+  location: {
+    latitude: datatype.float(),
+    longitude: datatype.float(),
+    zoom: 13
+  },
+  name: helpers.randomize(CITIES)
 });

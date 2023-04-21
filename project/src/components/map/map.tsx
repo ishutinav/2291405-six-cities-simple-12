@@ -3,7 +3,7 @@ import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import { FeatureGroup, Icon, Marker } from 'leaflet';
 import City from '../../types/city';
 import Offer from '../../types/offer';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import { useSelector } from 'react-redux';
 import { getActiveOfferId } from '../../store/app-data/selectors';
